@@ -1157,7 +1157,7 @@ GameObject:
   - component: {fileID: 488186939}
   - component: {fileID: 488186938}
   m_Layer: 5
-  m_Name: Canvas
+  m_Name: UI
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2870,9 +2870,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _data:
-    _json: '{"nest":{"source":"Macro","macro":0,"embed":null}}'
-    _objectReferences:
-    - {fileID: 11400000, guid: bafeba63718cfdd40af121ae5c1a3d71, type: 2}
+    _json: '{"nest":{"source":"Macro","macro":null,"embed":null}}'
+    _objectReferences: []
 --- !u!114 &1183932055
 MonoBehaviour:
   m_ObjectHideFlags: 0
