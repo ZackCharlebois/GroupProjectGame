@@ -51,7 +51,7 @@ public class PlayerManager : MonoBehaviour
         Debug.Log("Key Collected");
         keyCount.text = keysCollected.ToString();
         // Enemy begins chasing player when a key is collected
-        GameObject.FindGameObjectWithTag("Enemy").GetComponent<EnemyController>().isChasing = true;
+        //GameObject.FindGameObjectWithTag("Enemy").GetComponent<EnemyController>().isChasing = true;
 
 
     }
