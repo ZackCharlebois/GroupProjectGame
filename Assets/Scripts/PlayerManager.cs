@@ -45,11 +45,13 @@ public class PlayerManager : MonoBehaviour
 
     private void CollectKey(Collider other)
     {
+        AudioManager.Instance.PlaySFX(AudioManager.Instance.sfxSource);
         GameObject key = other.transform.parent.gameObject;
-        key.SetActive(false);
         keysCollected++;
         Debug.Log("Key Collected");
         keyCount.text = keysCollected.ToString();
+
+        key.SetActive(false);
         // Enemy begins chasing player when a key is collected
         //GameObject.FindGameObjectWithTag("Enemy").GetComponent<EnemyController>().isChasing = true;
 
