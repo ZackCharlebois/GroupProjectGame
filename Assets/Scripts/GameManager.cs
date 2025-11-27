@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour 
 {
@@ -28,5 +29,11 @@ public class GameManager : MonoBehaviour
     private void Start()
     {
         AudioManager.Instance.PlayMusicClip(AudioManager.Instance.musicClip);
+    }
+
+    public void LoadScene(string sceneName)
+    {
+        Debug.Log("Loading Scene: " + sceneName);
+        SceneManager.LoadScene(sceneName);
     }
 }

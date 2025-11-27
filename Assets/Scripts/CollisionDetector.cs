@@ -8,7 +8,6 @@ public class CollisionDetector : MonoBehaviour
 
     void Start()
     {
-        // Find the parent script in the hierarchy
         parent = GetComponentInParent<EnemyController>();
     }
 

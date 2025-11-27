@@ -9,13 +9,11 @@ public class PlayerManager : MonoBehaviour
 
     public int keysCollected;
 
-    public Text keyCount;
-
     // Start is called before the first frame update
     void Start()
     {
         keysCollected = 0;
-        keyCount.text = keysCollected.ToString();
+        UIManager.Instance.UpdateKeyCount(keysCollected);
     }
 
     // Update is called once per frame
@@ -39,8 +37,9 @@ public class PlayerManager : MonoBehaviour
     private void PlayerDies()
     {
         Debug.Log("Player has died");
-        UnityEngine.SceneManagement.Scene currentScene = SceneManager.GetActiveScene();
-        SceneManager.LoadScene(currentScene.name);
+        //UnityEngine.SceneManagement.Scene currentScene = SceneManager.GetActiveScene();
+        //SceneManager.LoadScene("DeathScene");
+        GameManager.Instance.LoadScene("DeathScene");
     }
 
     private void CollectKey(Collider other)
@@ -49,7 +48,7 @@ public class PlayerManager : MonoBehaviour
         GameObject key = other.transform.parent.gameObject;
         keysCollected++;
         Debug.Log("Key Collected");
-        keyCount.text = keysCollected.ToString();
+        UIManager.Instance.UpdateKeyCount(keysCollected);
 
         key.SetActive(false);
         // Enemy begins chasing player when a key is collected

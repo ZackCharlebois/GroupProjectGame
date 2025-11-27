@@ -10,45 +10,62 @@ public class EnemyController : MonoBehaviour
     public GameObject mapPositions;
     public GameObject player;
 
-    bool isIdle;
-    public bool isChasing;
+    private enum State { Idle, MovingToRoom, Chasing }
+    private State state = State.Idle;
+
+    float idleTimer = 0f;
+    float idleDelay = 2f;
 
     private void Start()
     {
-        isIdle = true;
-        isChasing = false;
+        state = State.Idle;
     }
 
-    // Update is called once per frame
+
     void Update()
     {
-        if (!agent.pathPending)
+        switch (state)
         {
-            // If close enough to destination and velocity is almost zero
-            if (agent.remainingDistance <= agent.stoppingDistance)
-            {
-                if (!agent.hasPath || agent.velocity.sqrMagnitude == 0f)
-                {
-                    isIdle = true;
-                    Debug.Log("Agent reached destination and stopped!");
-                }
-            }
-        }
+            case State.Idle:
+                HandleIdle();
+                break;
 
-        if (isChasing)
-        {
-            Invoke("ChasePlayer", 1f);
-            //ChasePlayer();
+            case State.MovingToRoom:
+                HandleMovingToRoom();
+                break;
+
+            case State.Chasing:
+                HandleChasing();
+                break;
         }
-        else if (!isChasing && isIdle)
+    }
+
+    void HandleIdle()
+    {
+        idleTimer += Time.deltaTime;
+        if (idleTimer >= idleDelay)
         {
-            Invoke("MoveToNextRoom", 4f);
+            idleTimer = 0f;
+            MoveToNextRoom();
+            state = State.MovingToRoom;
         }
+    }
+
+    void HandleMovingToRoom()
+    {
+        if (!agent.pathPending && agent.remainingDistance <= agent.stoppingDistance && agent.velocity.sqrMagnitude < 0.05f)
+        {
+            state = State.Idle;
+        }
+    }
+
+    void HandleChasing()
+    {
+        agent.SetDestination(player.transform.position);
     }
 
     void MoveToNextRoom()
     {
-        isIdle = false;
         int roomNumber = UnityEngine.Random.Range(1,mapPositions.transform.childCount);
         Vector3 roomPosition = mapPositions.transform.Find(roomNumber.ToString()).position;
         agent.SetDestination(roomPosition);
@@ -59,8 +76,7 @@ public class EnemyController : MonoBehaviour
         Debug.Log(other + " entered the enemy collider");
         if (other.gameObject.CompareTag("Player"))
         {
-            isChasing = true;
-            isIdle = false;
+            state = State.Chasing;
         }
     }
 
@@ -69,8 +85,8 @@ public class EnemyController : MonoBehaviour
         Debug.Log(other + " exited the enemy collider");
         if (other.gameObject.CompareTag("Player"))
         {
-            isChasing = false;
-            isIdle = true;
+            state = State.Idle;
+            idleTimer = 0f;
         }
     }
 
