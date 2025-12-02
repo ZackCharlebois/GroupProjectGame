@@ -39,12 +39,15 @@ public class GameManager : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Escape) && SceneManager.GetActiveScene().ToString() == "MainMenuScene") 
+        
+        if (Input.GetKeyDown(KeyCode.Escape) && SceneManager.GetActiveScene().name == "MainMenuScene") 
         {
             Application.Quit();
         }
         else if (Input.GetKeyDown(KeyCode.Escape))
         {
+            Cursor.visible = true;
+            Cursor.lockState = CursorLockMode.None;
             LoadScene("MainMenuScene");
         }
     }

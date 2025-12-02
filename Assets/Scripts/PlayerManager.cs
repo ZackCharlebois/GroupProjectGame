@@ -19,7 +19,11 @@ public class PlayerManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        if (Input.GetKeyDown(KeyCode.RightBracket) ) 
+        { 
+            keysCollected = 3;
+            ExitLevel();
+        }
     }
 
     private void OnTriggerEnter(Collider other)
@@ -65,18 +69,19 @@ public class PlayerManager : MonoBehaviour
     {
         if (keysCollected == 3) 
         {
-            Debug.Log("Exit Scene");
-            if (SceneManager.GetActiveScene().ToString() == "Level1") 
+            Debug.Log(SceneManager.GetActiveScene().name);
+
+            if (SceneManager.GetActiveScene().name == "Level1") 
             {
                 GameManager.Instance.LoadScene("Level2");
             }
-            if (SceneManager.GetActiveScene().ToString() == "Level2")
+            if (SceneManager.GetActiveScene().name == "Level2")
             {
                 GameManager.Instance.LoadScene("Level3");
             }
-            if (SceneManager.GetActiveScene().ToString() == "Level3")
+            if (SceneManager.GetActiveScene().name == "Level3")
             {
-                GameManager.Instance.LoadScene("WinScreen");
+                GameManager.Instance.LoadScene("WinScene");
             }
         }
     }
