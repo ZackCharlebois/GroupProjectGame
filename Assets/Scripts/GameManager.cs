@@ -36,4 +36,16 @@ public class GameManager : MonoBehaviour
         Debug.Log("Loading Scene: " + sceneName);
         SceneManager.LoadScene(sceneName);
     }
+
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Escape) && SceneManager.GetActiveScene().ToString() == "MainMenuScene") 
+        {
+            Application.Quit();
+        }
+        else if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            LoadScene("MainMenuScene");
+        }
+    }
 }

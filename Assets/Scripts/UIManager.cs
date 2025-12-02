@@ -66,6 +66,5 @@ public class UIManager : MonoBehaviour
     {
         //volume.GetComponent<Vignette>().intensity.value = 1 - distance / 100;
         vignette.intensity.value = 1 - distance / 100;
-        Debug.Log(vignette.intensity.value);
     }
 }

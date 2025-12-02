@@ -32,6 +32,10 @@ public class PlayerManager : MonoBehaviour
         {
             CollectKey(other);
         }
+        if (other.CompareTag("Exit"))
+        {
+            ExitLevel();
+        }
     }
 
     private void PlayerDies()
@@ -55,5 +59,25 @@ public class PlayerManager : MonoBehaviour
         //GameObject.FindGameObjectWithTag("Enemy").GetComponent<EnemyController>().isChasing = true;
 
 
+    }
+
+    private void ExitLevel()
+    {
+        if (keysCollected == 3) 
+        {
+            Debug.Log("Exit Scene");
+            if (SceneManager.GetActiveScene().ToString() == "Level1") 
+            {
+                GameManager.Instance.LoadScene("Level2");
+            }
+            if (SceneManager.GetActiveScene().ToString() == "Level2")
+            {
+                GameManager.Instance.LoadScene("Level3");
+            }
+            if (SceneManager.GetActiveScene().ToString() == "Level3")
+            {
+                GameManager.Instance.LoadScene("WinScreen");
+            }
+        }
     }
 }
